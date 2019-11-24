@@ -4,6 +4,8 @@ import * as courseResults from '../templates/courseResults.hbs';
 /* interfaces */
 import { ICourseData, ICourseResponse } from './../interfaces/all';
 
+import { TSortDir } from './../typings/types';
+
 // tslint:disable: no-console
 
 /**
@@ -16,17 +18,19 @@ export class CourseFeed {
      * css selector to identify course feed output
      */
     private _selector = '[data-course-feed]';
+
     /**
      * source url of course feed information
      */
     private _feedUrl = 'https://chris.merry.earth/cgi-bin/data-feed.pl';
+
     /**
      * loaded courses stored locally for repeat rendering
      */
     private _courses: ICourseData[];
 
     /**
-     * creates an instance of course feed
+     * creates an instance of CourseFeed
      */
     constructor() {
         const targets = document.querySelectorAll<HTMLElement>(this._selector);
@@ -53,7 +57,6 @@ export class CourseFeed {
      * @returns sort index
      */
     stringSort(a: ICourseData, b: ICourseData, key: keyof ICourseData): number {
-        // string sorting
         if (a[key] < b[key]) {
             return -1;
         }
@@ -63,27 +66,25 @@ export class CourseFeed {
         return 0;
     }
 
-    sorter(courses: ICourseData[], sort: keyof ICourseData, direction: 'ASC' | 'DESC') {
+    /**
+     * sorts course feed data
+     *
+     * @param sort - column
+     */
+    sorter(courses: ICourseData[], sort: keyof ICourseData, direction: TSortDir): void {
         switch (sort) {
             // numeric sorting
             case 'no':
             case 'price':
             case 'duration':
             case 'availability':
-                if (direction === 'ASC') {
-                    courses.sort((a, b) => a[sort] - b[sort]);
-                } else {
-                    courses.sort((a, b) => b[sort] - a[sort]);
-                }
+            case 'start_date_sort':
+                courses.sort((a, b) => (direction === 'ASC' ? a[sort] - b[sort] : b[sort] - a[sort]));
                 break;
 
             // string sorting
             default:
-                if (direction === 'ASC') {
-                    courses.sort((a, b) => this.stringSort(a, b, sort));
-                } else {
-                    courses.sort((a, b) => this.stringSort(b, a, sort));
-                }
+                courses.sort((a, b) => (direction === 'ASC' ? this.stringSort(a, b, sort) : this.stringSort(b, a, sort)));
         }
     }
 
@@ -92,27 +93,64 @@ export class CourseFeed {
      *
      * @returns true if rendered successfully
      */
-    render(target: HTMLElement): boolean {
+    render(target: HTMLElement, sort?: keyof ICourseData, direction?: TSortDir): boolean {
         // perform filtering / default sorting
-        // setup events to allow sorting after load
-        const sort = target.dataset.sort as keyof ICourseData;
-        const direction =
-            !target.dataset.direction || (target.dataset.direction !== 'ASC' && target.dataset.direction !== 'DESC')
-                ? 'ASC'
-                : target.dataset.direction;
+        sort = sort ? sort : (target.dataset.sort as keyof ICourseData);
+        direction = direction
+            ? direction
+            : !target.dataset.direction || (target.dataset.direction !== 'ASC' && target.dataset.direction !== 'DESC')
+            ? 'ASC'
+            : target.dataset.direction;
+
+        // limit input
+        const limit = target.dataset.limit ? parseInt(target.dataset.limit, 10) : 10000;
+
+        // filter input
         const filter = target.dataset.filter ? target.dataset.filter.toLowerCase() : '';
-        console.log('sort:', sort, 'direction:', direction, 'filter:', filter);
 
-        // filtering
-        const courses = filter ? this._courses.filter(item => this.filter(item, filter) !== -1) : this._courses;
+        // apply filtering
+        const courses = filter ? this._courses.filter(item => this.filter(item, filter) !== -1) : this._courses.filter(() => 1);
 
-        // sorting
+        // apply sorting
         if (sort) {
             this.sorter(courses, sort, direction);
         }
 
+        // apply limiting
+        if (courses.length > limit) {
+            courses.length = limit;
+        }
+
+        // write compiled template into the DOM
         target.innerHTML = courseResults({ courses });
+
+        // setup events to allow sorting after load
+        this.bindSortEvents(target, direction);
+
         return true;
+    }
+
+    /**
+     * binds sort events to the course data table
+     */
+    bindSortEvents(target: HTMLElement, direction?: TSortDir): void {
+        const sortColumns = target.querySelectorAll<HTMLTableCellElement>('[data-sort]');
+        sortColumns.forEach(sortColumn => {
+            // reverse the sort direction if sorting by the same column as previous sort
+            const newSort = sortColumn.dataset.sort as keyof ICourseData;
+            const newDirection = target.dataset.sort === newSort ? (direction === 'ASC' ? 'DESC' : 'ASC') : direction;
+
+            sortColumn.style.cursor = 'pointer';
+            sortColumn.title = 'sort by ' + sortColumn.innerText.toLowerCase() + ' ' + newDirection;
+
+            sortColumn.addEventListener('click', () => {
+                // update the target element with the new sort information
+                target.dataset.sort = newSort;
+                target.dataset.direction = newDirection;
+                // re-render the output
+                this.render(target, newSort, newDirection);
+            });
+        });
     }
 
     /**
@@ -127,6 +165,7 @@ export class CourseFeed {
                     .get(this._feedUrl)
                     .then((response: ICourseResponse) => {
                         if (response.success) {
+                            // store this for later requests
                             this._courses = response.courses;
                             resolve(response.courses);
                         } else {

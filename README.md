@@ -40,6 +40,14 @@ You can also filter the course list output by including this attribute `data-fil
 <div data-course-feed data-sort="price" data-direction="DESC" data-filter="maidstone"></div>
 ```
 
+### Limits
+
+The default limit is 1000, but this can be altered by including this data attribute `data-limit="10"`.
+
+```
+<div data-course-feed data-sort="price" data-direction="DESC" data-filter="maidstone" data-limit="10"></div>
+```
+
 ### Placement
 
 You can include as many of these as you like per page, if you're using wordpress you'll need to include these within code blocks. _**Note:** they don't need to be in the same code block & can be arranged throughout the page as required._
@@ -68,19 +76,20 @@ You can reference these for sorting the keywords on the left of each line are th
     "duration": 1,
     "availability": 11,
     "start_date": "29-NOV-19",
-    "start_time": "9:30 am",
-    "end_time": "4:30 pm",
+    "start_time": "9:30am",
+    "end_time": "4:30pm",
+    "session_dates": "29th Nov 2019 9:30am 4:30pm",
     "session_date1": "29-11-2019",
-    "session_start_time1": "9:30 am",
-    "session_end_time1": "4:30 pm",
-    "session_start_time2": "0:00 am",
+    "session_start_time1": "9:30am",
+    "session_end_time1": "4:30pm",
+    "session_start_time2": "0:00am",
     "session_date2": "",
-    "session_end_time2": "0:00 am",
+    "session_end_time2": "0:00am",
     "session_date3": "",
-    "session_start_time3": "0:00 am",
-    "session_end_time3": "0:00 am",
+    "session_start_time3": "0:00am",
+    "session_end_time3": "0:00am",
     "session_date4": "",
-    "session_start_time4": "0:00 am",
-    "session_end_time4": "0:00 am"
+    "session_start_time4": "0:00am",
+    "session_end_time4": "0:00am"
 }
 ```

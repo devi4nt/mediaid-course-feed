@@ -1,11 +1,11 @@
 <div class="course-results">
 	<table class="table table-hover">
 		<tr class="thead-dark">
-			<th scope="col" data-column="title">Course</th>
-			<th scope="col" data-column="venue,town,county">Location</th>
-			<th scope="col" data-column="start_date">When</th>
-			<th scope="col" data-column="price">Price</th>
-			<th scope="col" data-column="availability">Places</th>
+			<th scope="col" data-sort="title">Course</th>
+			<th scope="col" data-sort="venue">Location</th>
+			<th scope="col" data-sort="start_date_sort">When</th>
+			<th scope="col" data-sort="price">Price</th>
+			<th scope="col" data-sort="availability">Places</th>
 			<th></th>
 		</tr>
 		{{#each courses}}
@@ -13,17 +13,14 @@
 			<td>
 				<h6>{{title}}</h6>
 			</td>
-			<td>{{{venue}}}, {{{town}}}, {{{county}}}</td>
+			<td>{{{venue}}}, <small class="text-muted">{{{town}}}, {{{county}}}</small></td>
 			<td style="white-space: nowrap">
-				{{session_date1}} <small class="text-muted">{{session_start_time1}} - {{session_end_time1}}</small>
-				{{#if session_date2}}<br />{{session_date2}} <small class="text-muted">{{session_start_time2}} -
-					{{session_end_time2}}</small>{{/if}}
-				{{#if session_date3}}<br />{{session_date3}} <small class="text-muted">{{session_start_time3}} -
-					{{session_end_time3}}</small>{{/if}}
+				{{session_dates}} <small class="text-muted">{{start_time}} - {{end_time}}</small>
 			</td>
 			<td>&pound;{{price}}</td>
 			<td style="white-space: nowrap">{{availability}} <small class="text-muted">left</small></td>
-			<td><a href="https://www.booktraining.co.uk/coursebooking.aspx?id=1" target="_blank">book</a></td>
+			<td><a rel="nofollow" href="https://www.booktraining.co.uk/coursebooking.aspx?id=1" target="_blank">book</a>
+			</td>
 		</tr>
 		{{/each}}
 	</table>
