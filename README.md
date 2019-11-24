@@ -42,7 +42,7 @@ You can also filter the course list output by including this attribute `data-fil
 
 ### Limits
 
-The default limit is 1000, but this can be altered by including this data attribute `data-limit="10"`.
+The default limit is 10000, but this can be altered by including this data attribute `data-limit="10"`.
 
 ```
 <div data-course-feed data-sort="price" data-direction="DESC" data-filter="maidstone" data-limit="10"></div>
@@ -76,6 +76,7 @@ You can reference these for sorting the keywords on the left of each line are th
     "duration": 1,
     "availability": 11,
     "start_date": "29-NOV-19",
+    "start_date_sort" : 2019579,
     "start_time": "9:30am",
     "end_time": "4:30pm",
     "session_dates": "29th Nov 2019 9:30am 4:30pm",
