@@ -1,0 +1,12 @@
+# gitignore file for the siteapp repo
+*.swp
+*.DS_Store
+*~
+*.log
+
+# ignore dist
+dist
+
+# ignore usual npm files at any level
+**/node_modules/
+**/package-lock.json
