@@ -1,12 +1,12 @@
-# Media Aid - Course Display Component
+# Media Aid - Course Feed
 
 ## Introduction
 
-A little component I setup for my friend Iann to assist with a website he has been building. The site in question needed display training course information sourced from a legacy back office system.
+A little component I setup for my friend Iann to assist with a website he's been building. The site in question needed display training course information which is sourced from a legacy back office system.
 
 ## Instructions
 
-Include the following code snippet in each page you want to display the availiable course list.
+The following code snippet can be included in any page you wish to display availiable course information.
 
 ### Default behaviour
 
@@ -26,7 +26,7 @@ You can add the following data attribute `data-price="price"` to the initial ele
 
 ### Sort order
 
-The default sorting direction is ascending but you can also alter this by including this data attribute `data-direction="DESC"`.
+The default sorting direction is ascending, this can be altered by including this data attribute `data-direction="DESC"`.
 
 ```
 <div data-course-feed data-sort="price" data-direction="DESC"></div>
@@ -34,17 +34,19 @@ The default sorting direction is ascending but you can also alter this by includ
 
 ### Filtering
 
-Finaly you can also filter the course list output by including this attribute `data-filter="maidstone"` if defined the resulting course list will only include courses which include the specified keyword in any of the following column's `no`, `title`, `venue`, `town`, `county`.
+You can also filter the course list output by including this attribute `data-filter="maidstone"` the resulting output will only include rows which include the word "maidstone". _**Note:** only the following columns are filterable `no`, `title`, `venue`, `town`, `county`._
+
+```
+<div data-course-feed data-sort="price" data-direction="DESC" data-filter="maidstone"></div>
+```
 
 ### Placement
 
-You can include as many of these as you like per page, if you're using wordpress you can include these within code blocks.
-
-_**Note:** they don't need to be in the same code block & can be arranged throughout the page as required._
+You can include as many of these as you like per page, if you're using wordpress you'll need to include these within code blocks. _**Note:** they don't need to be in the same code block & can be arranged throughout the page as required._
 
 ### Support script
 
-This should only be included once per page & should be included within the page as late as possible. Alternatively if you wish it can be added to all pages as this will avoid the need to include it each page.
+This should only be included once per page & should be included within the page as late as possible. Alternatively if you wish, it could be added to the footer element so it's present within every page. _**Note:** this means you don't have to include it within each page._
 
 ```
 <script src="/custom-includes/js/bundle.min.js"></script>
@@ -52,7 +54,7 @@ This should only be included once per page & should be included within the page 
 
 ## Source data structure
 
-You can reference these for sorting the keys on the left of each line are the column names `no`, `title`, `venue`, `etc`.
+You can reference these for sorting the keywords on the left of each line are the column names eg. `no`, `title`, `venue`, `etc`.
 
 ```
 {
