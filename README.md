@@ -1,4 +1,4 @@
-# Media Aid - Course Feed
+# Medi Aid - Course Feed
 
 ## Introduction
 
