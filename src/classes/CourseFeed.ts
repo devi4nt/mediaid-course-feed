@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* handlebar template */
 import * as courseResults from '../templates/courseResults.hbs';
 
@@ -41,16 +42,34 @@ export class CourseFeed {
     }
 
     /**
-     * filters courses containing supplied string
+     * filters courses containing supplied string, the following control characters
+     * can affect the filtering process "|" means OR "+" means AND the filtering is
+     * case insensitive
+     *
+     * @example
+     * "'LocationA|LocationB' - will match if data contains LocationA OR LocationB"
+     * "'LocationA+CourseB' - will match if data contains LocationA AND CourseB"
      *
      * @param course course data structure
      * @param filter string to filter course data
      *
-     * @returns index into string -1 will be returned in the case of no match
+     * @returns boolean to indicate weither the filter expression matched
      */
-    filter(course: ICourseData, filter: string): number {
-        const filterStr = [course.no, course.title, course.county, course.town, course.venue].join(':');
-        return filterStr.toLowerCase().indexOf(filter);
+    filter(course: ICourseData, filter: string): boolean {
+        let match = false;
+        const filterStr = [course.no, course.venuecode, course.title, course.county, course.town, course.venue].join(':').toLowerCase();
+
+        const ors: string[] = filter.split('|');
+        ors.forEach(or => {
+            let andMatch = true;
+            const ands: string[] = or.split('+');
+            ands.forEach(and => {
+                andMatch = andMatch && filterStr.indexOf(and) !== -1;
+            });
+            match = match || andMatch;
+        });
+
+        return match;
     }
 
     /**
@@ -121,7 +140,7 @@ export class CourseFeed {
         const filter = target.dataset.filter ? target.dataset.filter.toLowerCase() : '';
 
         // apply filtering
-        const courses = filter ? this._courses.filter(item => this.filter(item, filter) !== -1) : this._courses.filter(() => 1);
+        const courses = filter ? this._courses.filter(item => this.filter(item, filter)) : this._courses.filter(() => 1);
 
         // apply sorting
         if (sort) {

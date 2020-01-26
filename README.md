@@ -1,4 +1,4 @@
-# Medi Aid - Course Feed
+# Medi Aid — Course Feed
 
 ## Introduction
 
@@ -34,10 +34,38 @@ The default sorting direction is ascending, this can be altered by including thi
 
 ### Filtering
 
-You can also filter the course list output by including this attribute `data-filter="maidstone"` the resulting output will only include rows which include the word "maidstone". _**Note:** only the following columns are filterable `no`, `title`, `venue`, `town`, `county`._
+You can also filter the course list output by including this attribute `data-filter="maidstone"` the resulting output will only include rows which include the word "maidstone".
+
+> Only the following columns are filterable `no`, `venuecode`, `title`, `venue`, `town`, `county`.
 
 ```
-<div data-course-feed data-sort="price" data-direction="DESC" data-filter="maidstone"></div>
+<div data-course-feed data-filter="maidstone"></div>
+```
+
+You can also include advanced conditional filtering logic. _This is useful if your want to show courses from say multiple locations, or include all courses of a particular type in a particular location._
+
+#### This location or that location
+
+The filter `maidstone|tunbridge` will include courses from `maidstone` or `tunbridge`.
+
+```
+<div data-course-feed data-filter="maidstone|tunbridge"></div>
+```
+
+#### This location and that course
+
+The filter `maidstone+paediatric` will include `paediatric` courses in `maidstone`.
+
+```
+<div data-course-feed data-filter="maidstone+paediatric"></div>
+```
+
+#### This location and that course or this location and that course
+
+You can even combine this logic to create even more complicated filtering such as `maidstone+paediatric|medway+requalification` which will include `paediatric` courses in `maidstone` or `requalification` courses in `medway`.
+
+```
+<div data-course-feed data-filter="maidstone+paediatric|medway+requalification"></div>
 ```
 
 ### Limits
@@ -45,16 +73,20 @@ You can also filter the course list output by including this attribute `data-fil
 The default limit is 10000, but this can be altered by including this data attribute `data-limit="10"`.
 
 ```
-<div data-course-feed data-sort="price" data-direction="DESC" data-filter="maidstone" data-limit="10"></div>
+<div data-course-feed data-limit="10"></div>
 ```
 
 ### Placement
 
-You can include as many of these as you like per page, if you're using wordpress you'll need to include these within code blocks. _**Note:** they don't need to be in the same code block & can be arranged throughout the page as required._
+You can include as many of these as you like per page, if you're using wordpress you'll need to include these within code blocks.
+
+> They don't need to be in the same code block & can be arranged throughout the page as required.
 
 ### Support script
 
-This should only be included once per page & should be included within the page as late as possible. Alternatively if you wish, it could be added to the footer element so it's present within every page. _**Note:** this means you don't have to include it within each page._
+This should only be included once per page & should be included within the page as late as possible. Alternatively if you wish, it could be added to the footer element so it's present within every page.
+
+> This means you don't have to include it within each page.
 
 ```
 <script src="/custom-includes/js/bundle.min.js"></script>
