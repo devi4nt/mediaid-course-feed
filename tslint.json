@@ -1,3 +1,0 @@
-{
-    "extends": ["@holograph/tslint-holo-rules"]
-}

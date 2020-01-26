@@ -2,12 +2,7 @@
     "editor.formatOnSave": true,
     "files.insertFinalNewline": true,
     "files.trimTrailingWhitespace": true,
-    "prettier.printWidth": 150,
-    "prettier.singleQuote": true,
-    "prettier.tabWidth": 4,
-    "prettier.trailingComma": "none",
-    "sort-imports.on-save": true,
-    "tslint.configFile": "tslint.json",
-    "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": true,
-    "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false
+    "eslint.alwaysShowStatus": true,
+    "eslint.workingDirectories": [{ "mode": "auto" }],
+    "source.fixAll.eslint": true
 }

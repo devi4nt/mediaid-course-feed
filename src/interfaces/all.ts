@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 export interface ICourseData {
     no: number;
     title: string;

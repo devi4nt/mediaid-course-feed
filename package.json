@@ -1,13 +1,20 @@
 {
     "name": "mediaid-course-feed",
-    "version": "0.0.1",
-    "description": "Media ID course feed display",
+    "version": "0.0.2",
+    "description": "Course feed display component for mediaid.co.uk",
     "main": "dist/bundle.min.js",
+    "prettier": "@holograph/prettier-holo-config",
+    "lint-staged": {
+        "*.ts": [
+            "eslint"
+        ]
+    },
     "dependencies": {
         "handlebars": "^4.1.2"
     },
     "devDependencies": {
-        "@holograph/tslint-holo-rules": "^1.0.5",
+        "@holograph/eslint-config-holo": "^1.0.5",
+        "@holograph/prettier-holo-config": "^1.0.1",
         "@types/jquery": "^3.3.29",
         "clean-webpack-plugin": "^0.1.19",
         "exports-loader": "^0.7.0",
@@ -25,12 +32,10 @@
         "setup": "npm install && npm update",
         "build:prod": "npm run setup && npm run compile:prod",
         "build:dev": "npm run setup && npm run compile:dev",
-        "precompile:dev": "npm run lint.ts",
-        "compile:dev": "webpack --env.development",
-        "compile:prod": "webpack --env.production",
-        "publish": "npm run compile:prod && scp dist/bundle.min.js mediaidtraining@160.153.16.23:/home/mediaidtraining/public_html/custom-includes/js/bundle.min.js",
-        "lint.ts": "tslint --project .",
-        "lint.ts.fix": "tslint --project . --fix"
+        "compile:dev": "npm run lint.ts && webpack --env.development",
+        "compile:prod": "npm run lint.ts && webpack --env.production",
+        "lint.ts": "eslint \"src/**/*.ts\"",
+        "lint.ts.fix": "npm run lint.ts -- --fix"
     },
     "repository": {
         "type": "git",

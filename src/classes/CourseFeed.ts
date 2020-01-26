@@ -4,9 +4,8 @@ import * as courseResults from '../templates/courseResults.hbs';
 /* interfaces */
 import { ICourseData, ICourseResponse } from './../interfaces/all';
 
+/* types */
 import { TSortDir } from './../typings/types';
-
-// tslint:disable: no-console
 
 /**
  * course feed class - loads feed data once & renders any detected feeds on the
@@ -44,6 +43,9 @@ export class CourseFeed {
     /**
      * filters courses containing supplied string
      *
+     * @param course course data structure
+     * @param filter string to filter course data
+     *
      * @returns index into string -1 will be returned in the case of no match
      */
     filter(course: ICourseData, filter: string): number {
@@ -54,13 +56,17 @@ export class CourseFeed {
     /**
      * sorts courses on specified key
      *
+     * @param sortA course data element
+     * @param sortB course data element
+     * @param sortKey course data property to sort by
+     *
      * @returns sort index
      */
-    stringSort(a: ICourseData, b: ICourseData, key: keyof ICourseData): number {
-        if (a[key] < b[key]) {
+    stringSort(sortA: ICourseData, sortB: ICourseData, sortKey: keyof ICourseData): number {
+        if (sortA[sortKey] < sortB[sortKey]) {
             return -1;
         }
-        if (a[key] > b[key]) {
+        if (sortA[sortKey] > sortB[sortKey]) {
             return 1;
         }
         return 0;
@@ -69,7 +75,9 @@ export class CourseFeed {
     /**
      * sorts course feed data
      *
-     * @param sort - column
+     * @param courses course data structure
+     * @param sort column to sort by
+     * @param direction sort direction
      */
     sorter(courses: ICourseData[], sort: keyof ICourseData, direction: TSortDir): void {
         switch (sort) {
@@ -90,6 +98,10 @@ export class CourseFeed {
 
     /**
      * renders course feed
+     *
+     * @param target DOM element to render compiled output into
+     * @param sort course data property to search
+     * @param direction sort direction
      *
      * @returns true if rendered successfully
      */
@@ -132,6 +144,9 @@ export class CourseFeed {
 
     /**
      * binds sort events to the course data table
+     *
+     * @param target DOM element to render compiled output into
+     * @param direction sort direction
      */
     bindSortEvents(target: HTMLElement, direction?: TSortDir): void {
         const sortColumns = target.querySelectorAll<HTMLTableCellElement>('[data-sort]');
@@ -172,8 +187,8 @@ export class CourseFeed {
                             reject(response.reason);
                         }
                     })
-                    .fail((err: any) => {
-                        reject(err);
+                    .fail((error: string) => {
+                        reject(error);
                     });
             }
         });
