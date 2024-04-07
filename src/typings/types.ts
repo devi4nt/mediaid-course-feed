@@ -1,1 +1,1 @@
-export type TSortDir = 'ASC' | 'DESC';
+export type TSortDir = "ASC" | "DESC";

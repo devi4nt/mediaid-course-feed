@@ -1,27 +1,34 @@
 <div class="course-results">
-	<table class="table table-hover">
-		<tr class="thead-dark">
-			<th scope="col" data-sort="title">Course</th>
-			<th scope="col" data-sort="venue">Location</th>
-			<th scope="col" data-sort="start_date_sort">When</th>
-			<th scope="col" data-sort="price">Price</th>
-			<th scope="col" data-sort="availability">Places</th>
-			<th></th>
-		</tr>
-		{{#each courses}}
-		<tr>
-			<td>
-				<h6>{{title}}</h6>
-			</td>
-			<td>{{{venue}}}, <small class="text-muted">{{{town}}}, {{{county}}}</small></td>
-			<td style="white-space: nowrap">
-				{{session_dates}} <small class="text-muted">{{start_time}} - {{end_time}}</small>
-			</td>
-			<td>&pound;{{price}}</td>
-			<td style="white-space: nowrap">{{availability}} <small class="text-muted">left</small></td>
-			<td><a rel="nofollow" href="https://www.booktraining.co.uk/coursebooking.aspx?id=1" target="_blank">book</a>
-			</td>
-		</tr>
-		{{/each}}
-	</table>
+  <table class="table table-hover">
+    <tr class="thead-dark">
+      <th scope="col" data-sort="title">Course</th>
+      <th scope="col" data-sort="venue">Location</th>
+      <th scope="col" data-sort="start_date_sort">When</th>
+      <th scope="col" data-sort="price">Price</th>
+      <th scope="col" data-sort="availability">Places</th>
+      <th></th>
+    </tr>
+    {{#each courses}}
+      <tr>
+        <td>
+          <h6>{{title}}</h6>
+        </td>
+        <td>{{{venue}}},
+          <small class="text-muted">{{{town}}}, {{{county}}}</small></td>
+        <td style="white-space: nowrap">
+          {{session_dates}}
+          <small class="text-muted">{{start_time}} - {{end_time}}</small>
+        </td>
+        <td>&pound;{{price}}</td>
+        <td style="white-space: nowrap">{{availability}}
+          <small class="text-muted">left</small></td>
+        <td><a
+            rel="nofollow"
+            href="https://www.booktraining.co.uk/coursebooking.aspx?id=1"
+            target="_blank"
+          >book</a>
+        </td>
+      </tr>
+    {{/each}}
+  </table>
 </div>

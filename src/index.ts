@@ -1,5 +1,5 @@
-import { CourseFeed } from './classes/CourseFeed';
+import { CourseFeed } from "./classes/CourseFeed";
 
-document.addEventListener('DOMContentLoaded', () => {
-    new CourseFeed();
+document.addEventListener("DOMContentLoaded", () => {
+  new CourseFeed();
 });
