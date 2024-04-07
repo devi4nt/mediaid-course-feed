@@ -1,16 +1,16 @@
-# Medi Aid — Course Feed
+# MediAid — Course Feed
 
 ## Introduction
 
-A little component I setup for my friend Iann to assist with a website he's been building. The site in question needed display training course information which is sourced from a legacy back office system.
+A little component I setup for my friend to assist with a website he's been building. The site in question needed display training course information which is sourced from a legacy back office system.
 
-## Instructions
+## Usage instructions
 
-The following code snippet can be included in any page you wish to display availiable course information.
+The following code snippet can be included in any page you wish to display available course information.
 
 ### Default behaviour
 
-This will display all availaible course information without sorting or filtering.
+This will display all available course information without sorting or filtering.
 
 ```
 <div data-course-feed></div>
@@ -125,4 +125,28 @@ You can reference these for sorting the keywords on the left of each line are th
     "session_start_time4": "0:00am",
     "session_end_time4": "0:00am"
 }
+```
+
+### Development instructions
+
+**Installation**
+
+```
+pnpm install
+```
+
+**Development**
+
+```
+# run webpack compiler in watch mode
+pnpm run dev
+
+# then open index.html test page in browser
+```
+
+**Production**
+
+```
+# run webpack compiler in production mode
+pnpm run build
 ```

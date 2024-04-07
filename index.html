@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Testing course feed</title>
+    <script src="./dist/bundle.min.js"></script>
+    <style>
+      body {
+        font-family: "Roboto", Helvetica, Arial, Lucida, sans-serif;
+      }
+      table {
+        border: 1px solid #eee;
+        margin: 0 0 15px;
+        text-align: left;
+        width: 100%;
+      }
+      th {
+        color: #555;
+        font-weight: 700;
+        padding: 9px 24px;
+      }
+      td {
+        border-top: 1px solid #eee;
+        padding: 6px 24px;
+      }
+      h6 {
+        font-size: 14px;
+        color: #333;
+        line-height: 1em;
+        font-weight: 500;
+        margin: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <p>
+      This will display all available course information without sorting or
+      filtering.
+    </p>
+    <div data-course-feed></div>
+  </body>
+</html>
